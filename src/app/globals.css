@@ -1,10 +1,33 @@
+:root {
+  --nat-navbar-bg: green;
+  --nat-navbar-bg-rgb: green;
+  --nat-navbar-bg-rgb: 236, 236, 236;
+  --nat-navbar-text-color: blue;
+}
+
 html,
 body {
-  --bs-light-rgb: 236, 236, 236;
+  --bs-dark-rgb: 236, 236, 236;
   box-sizing: border-box;
   height: 100%;
   padding: 0;
   margin: 0;
+  background: fixed center url(/background.png);
+  background-size: cover;
+}
+
+footer, footer a {
+  color: var(--nat-navbar-text-color);
+}
+body .navbar {
+  --bs-navbar-active-color: var(--nat-navbar-highlight-text);
+  --bs-navbar-brand-color: var(--nat-navbar-text-color);
+  --bs-navbar-brand-hover-color: var(--nat-navbar-highlight-text);
+  --bs-navbar-color: var(--nat-navbar-text-color);
+  --bs-navbar-hover-color: var(--nat-navbar-highlight-text);
+}
+.bg-dark a.dropdown-item {
+  color: var(--nat-navbar-bg);
 }
 .wrapper {
   box-sizing: border-box;
