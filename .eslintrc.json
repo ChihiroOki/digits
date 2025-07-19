@@ -9,6 +9,7 @@
     "arrow-parens": "off",
     "func-names": "off",
     "linebreak-style": "off",
+    "operator-linebreak": "off",
     "max-len": ["error", 120],
     "no-console": "off",
     "no-plusplus": "off",
