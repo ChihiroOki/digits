@@ -1,7 +1,7 @@
 🧭 Application Walkthrough<br>
 🏠 Home Page (/)<br>
 Displays a welcoming landing page.
-[](https://github.com/ChihiroOki/digits/blob/main/doc/1.png)
+[](https://github.com/ChihiroOki/digits/blob/main/doc/first.png)
 
 Provides links to sign in and view contacts.
 
