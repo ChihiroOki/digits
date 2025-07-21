@@ -1,4 +1,4 @@
-import { PrismaClient, Role, Condition } from '@prisma/client';
+import { PrismaClient, Role } from '@prisma/client';
 import { hash } from 'bcrypt';
 import * as config from '../config/settings.development.json';
 
@@ -24,69 +24,38 @@ async function main() {
     });
   });
 
-  config.defaultData.forEach(async (data) => {
-    let condition: Condition = 'good';
-    if (data.condition === 'poor') {
-      condition = 'poor';
-    } else if (data.condition === 'excellent') {
-      condition = 'excellent';
-    } else if (data.condition === 'fair') {
-      condition = 'fair';
-    }
-    console.log(`  Adding stuff: ${data.name}(${data.owner})`);
-
-    // You must provide a unique identifier for the 'where' clause, such as 'id'
-    // If you don't have an id, you may need to query for it first or change your schema to make 'name' unique
-    // Here is an example assuming you have 'id' in your data:
-    // You must provide a unique identifier for the 'where' clause, such as 'id'
-    // If you don't have an id, you may need to query for it first or change your schema to make 'name' unique
-    // Here is an example assuming you have 'id' in your data:
-    // First, try to find the existing stuff by name and owner
-    const existingStuff = await prisma.stuff.findFirst({
+  config.defaultContacts.forEach(async (contact) => {
+    console.log(`  Adding contact: ${contact.firstName} ${contact.lastName}`);
+    // Try to find the contact first by firstName and lastName
+    const existingContact = await prisma.contact.findFirst({
       where: {
-        name: data.name,
-        owner: data.owner,
+        firstName: contact.firstName,
+        lastName: contact.lastName,
       },
     });
 
-    if (existingStuff) {
-      await prisma.stuff.update({
-        where: { id: existingStuff.id },
+    if (existingContact) {
+      await prisma.contact.update({
+        where: { id: existingContact.id },
         data: {
-          quantity: data.quantity,
-          condition,
+          address: contact.address,
+          description: contact.description,
+          image: contact.image,
+          owner: contact.owner,
         },
       });
     } else {
-      await prisma.stuff.create({
+      await prisma.contact.create({
         data: {
-          name: data.name,
-          quantity: data.quantity,
-          owner: data.owner,
-          condition,
+          firstName: contact.firstName,
+          lastName: contact.lastName,
+          address: contact.address,
+          description: contact.description,
+          image: contact.image,
+          owner: contact.owner,
         },
       });
     }
-  });
-  config.defaultContacts.forEach(async (contact) => {
-    console.log(`  Adding contact: ${contact.firstName} ${contact.lastName}`);
-    await prisma.contact.upsert({
-      where: {
-        firstName_lastName: {
-          firstName: contact.firstName,
-          lastName: contact.lastName,
-        },
-      },
-      update: {},
-      create: {
-        firstName: contact.firstName,
-        lastName: contact.lastName,
-        address: contact.address,
-        description: contact.description,
-        image: contact.image,
-        owner: contact.owner,
-      },
-    });
   });
 }
 
