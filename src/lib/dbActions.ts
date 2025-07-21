@@ -1,6 +1,6 @@
 'use server';
 
-import { Stuff, Condition } from '@prisma/client';
+import { Condition, Contact } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
@@ -32,18 +32,59 @@ export async function addStuff(stuff: { name: string; quantity: number; owner: s
 }
 
 /**
- * Edits an existing stuff in the database.
- * @param stuff, an object with the following properties: id, name, quantity, owner, condition.
+ * Adds a new contact to the database.
+ * @param contact the contact object to be added.
  */
-export async function editStuff(stuff: Stuff) {
-  // console.log(`editStuff data: ${JSON.stringify(stuff, null, 2)}`);
-  await prisma.stuff.update({
-    where: { id: stuff.id },
+export async function addContact(contact: {
+  firstName: string;
+  lastName: string;
+  address: string;
+  description: string;
+  image: string;
+  owner: string;
+}) {
+  await prisma.contact.create({
     data: {
-      name: stuff.name,
-      quantity: stuff.quantity,
-      owner: stuff.owner,
-      condition: stuff.condition,
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+      address: contact.address,
+      description: contact.description,
+      image: contact.image,
+      owner: contact.owner,
+    },
+  });
+  redirect('list');
+}
+
+export async function editContacts(contact: Contact) {
+  await prisma.contact.update({
+    where: { id: contact.id },
+    data: {
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+      address: contact.address,
+      description: contact.description,
+      image: contact.image,
+      owner: contact.owner,
+    },
+  });
+  redirect('/list');
+}
+
+/**
+ * Edits an existing contact in the database.
+ * @param contact, an object with the following properties: id, firstName, lastName, address, description, image, owner.
+ */
+export async function editContact(contact: Contact) {
+  await prisma.contact.update({
+    where: { id: contact.id },
+    data: {
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+      address: contact.address,
+      description: contact.description,
+      image: contact.image,
+      owner: contact.owner,
     },
   });
   // After updating, redirect to the list page
@@ -56,7 +97,7 @@ export async function editStuff(stuff: Stuff) {
  */
 export async function deleteStuff(id: number) {
   // console.log(`deleteStuff id: ${id}`);
-  await prisma.stuff.delete({
+  await prisma.contact.delete({
     where: { id },
   });
   // After deleting, redirect to the list page
