@@ -52,5 +52,5 @@ model Contact {
   image String
   description String
   owner String
-  @@unique([firstName, lastName], name: "firstName_lastName")
+  @@unique([firstName,lastName], name:"firstName_lastName")
 }
