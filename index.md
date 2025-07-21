@@ -1,4 +1,5 @@
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/landing-page.png)
+![](<img width="1468" height="798" alt="Screenshot 2025-07-20 at 10 31 52 PM" src="https://github.com/user-attachments/assets/260e45e4-5db7-4c62-8e49-ab553816b497" />
+)
 
 nextjs-application-template is a sample Next.js 14 application that illustrates:
 
