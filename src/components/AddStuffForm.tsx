@@ -6,19 +6,19 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
 import { redirect } from 'next/navigation';
-import { addStuff } from '@/lib/dbActions';
+import { addContact } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import { AddStuffSchema } from '@/lib/validationSchemas';
+import { AddContactSchema } from '@/lib/validationSchemas';
 
 const onSubmit = async (data: { name: string; quantity: number; owner: string; condition: string }) => {
   // console.log(`onSubmit data: ${JSON.stringify(data, null, 2)}`);
-  await addStuff(data);
+  await addContact(data);
   swal('Success', 'Your item has been added', 'success', {
     timer: 2000,
   });
 };
 
-const AddStuffForm: React.FC = () => {
+const AddContactForm: React.FC = () => {
   const { data: session, status } = useSession();
   // console.log('AddStuffForm', status, session);
   const currentUser = session?.user?.email || '';
@@ -28,7 +28,7 @@ const AddStuffForm: React.FC = () => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(AddStuffSchema),
+    resolver: yupResolver(AddContactSchema),
   });
   if (status === 'loading') {
     return <LoadingSpinner />;
@@ -42,7 +42,7 @@ const AddStuffForm: React.FC = () => {
       <Row className="justify-content-center">
         <Col xs={5}>
           <Col className="text-center">
-            <h2>Add Stuff</h2>
+            <h2>Add Contact</h2>
           </Col>
           <Card>
             <Card.Body>
@@ -99,4 +99,4 @@ const AddStuffForm: React.FC = () => {
   );
 };
 
-export default AddStuffForm;
+export default AddContactForm;
