@@ -1,5 +1,4 @@
-![](<img width="390" height="211" alt="Screenshot 2025-07-20 at 10 31 52 PM" src="https://github.com/ChihiroOki/digits/blob/main/doc/1.png" />
-)
+![]("https://github.com/ChihiroOki/digits/blob/main/doc/1.png")
 
 nextjs-application-template is a sample Next.js 14 application that illustrates:
 
